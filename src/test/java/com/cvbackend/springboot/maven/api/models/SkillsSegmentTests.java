@@ -21,8 +21,7 @@ public class SkillsSegmentTests {
                     {"skill": "Java"},
                     {"skill": "Spring Boot"},
                     {"skill": "Docker"}
-                ],
-                "input": "Java development"
+                ]
             }
             """;
 
@@ -31,12 +30,10 @@ public class SkillsSegmentTests {
         assertThat(segment.getSkills().get(0).getSkill()).isEqualTo("Java");
         assertThat(segment.getSkills().get(1).getSkill()).isEqualTo("Spring Boot");
         assertThat(segment.getSkills().get(2).getSkill()).isEqualTo("Docker");
-        assertThat(segment.getInput()).isEqualTo("Java development");
 
         String serializedJson = objectMapper.writeValueAsString(segment);
         assertThat(serializedJson).contains("Java");
         assertThat(serializedJson).contains("Spring Boot");
         assertThat(serializedJson).contains("Docker");
-        assertThat(serializedJson).contains("Java development");
     }
 }

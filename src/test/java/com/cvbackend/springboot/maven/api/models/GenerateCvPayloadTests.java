@@ -54,8 +54,7 @@ public class GenerateCvPayloadTests {
                     "skills": [
                         {"skill": "Java"},
                         {"skill": "Spring Boot"}
-                    ],
-                    "input": "Java development"
+                    ]
                 },
                 "certificationsSegment": [
                     {
@@ -110,7 +109,6 @@ public class GenerateCvPayloadTests {
         assertThat(payload.getSkillsSegment().getSkills()).hasSize(2);
         assertThat(payload.getSkillsSegment().getSkills().get(0).getSkill()).isEqualTo("Java");
         assertThat(payload.getSkillsSegment().getSkills().get(1).getSkill()).isEqualTo("Spring Boot");
-        assertThat(payload.getSkillsSegment().getInput()).isEqualTo("Java development");
 
         assertThat(payload.getCertificationsSegment()).hasSize(1);
         assertThat(payload.getCertificationsSegment().get(0).getName()).isEqualTo("Certified Java Developer");
