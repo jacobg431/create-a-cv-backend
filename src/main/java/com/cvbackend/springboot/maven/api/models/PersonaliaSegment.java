@@ -2,15 +2,11 @@ package com.cvbackend.springboot.maven.api.models;
 
 import lombok.Data;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Map;
 import org.javatuples.Pair;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;
+//import com.cvbackend.springboot.maven.api.utils.FileUtility;
+import com.cvbackend.springboot.maven.api.utils.StringUtility;
 
 @Data
 public class PersonaliaSegment {
@@ -35,7 +31,6 @@ public class PersonaliaSegment {
 
     private Boolean isValid;
     private String validationErrorMsg;
-    private Matcher matcher;
 
     public Pair<Boolean, String> Validate() {
 
@@ -44,18 +39,18 @@ public class PersonaliaSegment {
 
         try {
 
-            ValidateFirstName(this.firstName);
-            ValidateLastName(this.lastName);
-            ValidateEmail(this.lastName);
-            ValidatePhone(this.lastName);
-            ValidateDateOfBirth(this.lastName);
-            ValidateGender(this.lastName);
-            ValidateAddress(this.lastName);
-            ValidateZipCode(this.lastName);
-            ValidateCity(this.lastName);
-            ValidateCountry(this.lastName);
-            ValidateSummary(this.lastName);
-            ValidateProfilePicture(this.profilePicture);
+            ValidateFirstName();
+            ValidateLastName();
+            ValidateEmail();
+            ValidatePhone();
+            ValidateDateOfBirth();
+            ValidateGender();
+            ValidateAddress();
+            ValidateZipCode();
+            ValidateCity();
+            ValidateCountry();
+            ValidateSummary();
+            ValidateProfilePicture();
             
         } catch(Exception e) {
             this.isValid = false;
@@ -66,109 +61,85 @@ public class PersonaliaSegment {
 
     }
 
-    private static boolean IsPatternMatching(String matcher, String regexPattern) {
-        return Pattern.compile(regexPattern).matcher(regexPattern).matches();
-    }
-
-    private static boolean IsValidDateTime(String dateTimeString) {
-        try {
-            DateTimeStringToObject(dateTimeString);
-        } catch(DateTimeParseException e) {
-            return false;
-        } catch(DateTimeException e) {
-            return false;
-        }
-        return true;
-    }
-
-    private static LocalDateTime DateTimeStringToObject(String dateTimeString) {
-        return LocalDateTime.from(DateTimeFormatter.ISO_INSTANT.parse(dateTimeString));
-    }
-
-    private static boolean IsFormerDateEarlierThanLatterDate(LocalDateTime formerDateTime, LocalDateTime latterDateTime) {
-        latterDateTime = latterDateTime != null ? latterDateTime: LocalDateTime.now(); // Current time is default
-        LocalDate formerDate = LocalDate.from(formerDateTime);
-        LocalDate latterDate = LocalDate.from(latterDateTime);
-        return formerDate.isBefore(latterDate);
-    }
-
-    private static void ValidateFirstName(String firstName) throws Exception {
-        if (firstName == null) {
+    private void ValidateFirstName() throws Exception {
+        if (this.firstName == null) {
             throw new Exception("First name not supplied");
         }
     }
 
-    private static void ValidateLastName(String lastName) throws Exception {
-        if (lastName == null) {
+    private void ValidateLastName() throws Exception {
+        if (this.lastName == null) {
             throw new Exception("Last name not supplied");
         }
     }
 
-    private static void ValidateEmail(String email) throws Exception {
-        if (email == null) {
+    private void ValidateEmail() throws Exception {
+        if (this.email == null) {
             throw new Exception("Email not supplied");
         }
-        if (!IsPatternMatching(email, EMAIL_PATTERN)) {
+        if (!StringUtility.IsPatternMatching(this.email, EMAIL_PATTERN)) {
             throw new Exception("Email not valid");
         }
     }
 
-    private static void ValidatePhone(String phone) throws Exception {
-        if (phone == null) {
+    private void ValidatePhone() throws Exception {
+        if (this.phone == null) {
             throw new Exception("Phone number not supplied");
         }
-        if (!IsPatternMatching(phone, PHONE_PATTERN)) {
+        if (!StringUtility.IsPatternMatching(this.phone, PHONE_PATTERN)) {
             throw new Exception("Phone number not valid");
         }
     }
 
-    private static void ValidateDateOfBirth(String dateOfBirth) throws Exception {
-        if (dateOfBirth == null) {
+    private void ValidateDateOfBirth() throws Exception {
+        if (this.dateOfBirth == null) {
             throw new Exception("Date of birth not supplied");
         }
-        if (!IsValidDateTime(dateOfBirth)) {
+        if (!DateTimeUtility.IsValidDateTime(this.dateOfBirth)) {
             throw new Exception("Date of birth not valid");
         }
-        if (!IsFormerDateEarlierThanLatterDate(DateTimeStringToObject(dateOfBirth), null)) {
+        if (!DateTimeUtility.IsFormerDateEarlierThanLatterDate(
+            DateTimeUtility.DateTimeStringToObject(this.dateOfBirth), 
+            null)) {
             throw new Exception("Date of birth is not before today");
         }
     }
 
-    private static void ValidateGender(String gender) throws Exception {
-        if (gender == null) {
+    private void ValidateGender() throws Exception {
+        if (this.gender == null) {
             throw new Exception("Gender not supplied");
         }
-        if (gender != "Female" || gender != "Male") {
+        if (this.gender != "Female" || this.gender != "Male") {
             throw new Exception("Gender must be either 'Female' or 'Male'");
         }
     }
 
-    private static void ValidateAddress(String address) throws Exception {
-        if (address == null) {
+    private void ValidateAddress() throws Exception {
+        if (this.address == null) {
             throw new Exception("Address not supplied");
         }
     }
 
-    private static void ValidateZipCode(String zipCode) throws Exception {
-        if (zipCode == null) {
+    private void ValidateZipCode() throws Exception {
+        if (this.zipCode == null) {
             throw new Exception("Zip Code not supplied");
         }
     }
 
-    private static void ValidateCity(String city) throws Exception {
-        if (city == null) {
+    private void ValidateCity() throws Exception {
+        if (this.city == null) {
             throw new Exception("City not supplied");
         }
     }
 
-    private static void ValidateCountry(String country) throws Exception {
-        if (country == null) {
+    private void ValidateCountry() throws Exception {
+        if (this.country == null) {
             throw new Exception("Country not supplied");
         }
     }
 
-    private static void ValidateSummary(String summary) {}
+    private void ValidateSummary() {}
 
-    private static void ValidateProfilePicture(Map<String, Object> profilePciture) throws Exception {}
+    private void ValidateProfilePicture() {}
 
 }
