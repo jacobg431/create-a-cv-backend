@@ -26,10 +26,10 @@ public class SkillsSegmentTests {
             """;
 
         SkillsSegment segment = objectMapper.readValue(json, SkillsSegment.class);
-        assertThat(segment.getSkills()).hasSize(3);
-        assertThat(segment.getSkills().get(0).getSkill()).isEqualTo("Java");
-        assertThat(segment.getSkills().get(1).getSkill()).isEqualTo("Spring Boot");
-        assertThat(segment.getSkills().get(2).getSkill()).isEqualTo("Docker");
+        assertThat(segment.getSkillList()).hasSize(3);
+        assertThat(segment.getSkillList().get(0).getSkill()).isEqualTo("Java");
+        assertThat(segment.getSkillList().get(1).getSkill()).isEqualTo("Spring Boot");
+        assertThat(segment.getSkillList().get(2).getSkill()).isEqualTo("Docker");
 
         String serializedJson = objectMapper.writeValueAsString(segment);
         assertThat(serializedJson).contains("Java");

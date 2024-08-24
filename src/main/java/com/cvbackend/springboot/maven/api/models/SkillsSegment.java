@@ -8,12 +8,12 @@ import lombok.Data;
 public class SkillsSegment {
 
     @Data
-    private class Skill {
+    public class Skill {
 
         private String skill;
         private int instanceIndex;
 
-        public void Validate(int instanceIndex) throws Exception {
+        private void Validate(int instanceIndex) throws Exception {
             this.instanceIndex = instanceIndex;
             ValidateSkill();
         }
