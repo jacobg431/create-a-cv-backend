@@ -12,7 +12,7 @@ public class EducationSegment {
     private String degree;
     private String startDate;
     private String endDate;
-    private boolean isStudying;
+    private Boolean isStudying;
 
     private int instanceIndex;
     private Boolean isValid;
