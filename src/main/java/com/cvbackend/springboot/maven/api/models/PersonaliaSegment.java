@@ -1,7 +1,6 @@
 package com.cvbackend.springboot.maven.api.models;
 
 import lombok.Data;
-
 import java.util.Map;
 import org.javatuples.Pair;
 import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;

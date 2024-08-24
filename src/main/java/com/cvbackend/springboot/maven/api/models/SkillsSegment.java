@@ -1,39 +1,48 @@
 package com.cvbackend.springboot.maven.api.models;
 
 import java.util.List;
-
 import org.javatuples.Pair;
-
 import lombok.Data;
 
 @Data
 public class SkillsSegment {
-    private List<Skill> skills;
 
     @Data
-    public static class Skill {
+    private class Skill {
+
         private String skill;
         private int instanceIndex;
 
-        public void ValidateSkill(int instanceIndex) throws Exception {
+        public void Validate(int instanceIndex) throws Exception {
             this.instanceIndex = instanceIndex;
+            ValidateSkill();
+        }
+
+        private void ValidateSkill() throws Exception {
             if (this.skill == null) {
                 throw new Exception("Skill not supplied for skill instance " + this.instanceIndex);
             }
         }
+
     }
 
+    private List<Skill> skillList;
     private Boolean isValid;
     private String validationErrorMsg;
+    private int instanceIndex;
 
     public Pair<Boolean, String> Validate() {
 
         this.isValid = true;
         this.validationErrorMsg = "";
+        this.instanceIndex = 0;
 
         try {
 
-            ValidateSkills();
+            for (Skill skill : this.skillList) {
+                skill.Validate(this.instanceIndex);
+                this.instanceIndex++;
+            }
             
         } catch(Exception e) {
             this.isValid = false;
@@ -42,14 +51,6 @@ public class SkillsSegment {
 
         return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
 
-    }
-
-    private void ValidateSkills() throws Exception {
-        int instanceIndex = 0;
-        for (Skill skill : skills) {
-            skill.ValidateSkill(instanceIndex);
-            instanceIndex++;
-        }
     }
 
 }
