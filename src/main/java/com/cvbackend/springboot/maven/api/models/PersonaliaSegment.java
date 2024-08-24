@@ -45,7 +45,7 @@ public class PersonaliaSegment {
             ValidatePhone();
             ValidateDateOfBirth();
             ValidateGender();
-            ValidateAddress();
+            ValidateAddresses();
             ValidateZipCode();
             ValidateCity();
             ValidateCountry();
@@ -57,7 +57,7 @@ public class PersonaliaSegment {
             this.validationErrorMsg = e.getMessage();
         }
 
-        return new Pair<Boolean, String>(isValid, validationErrorMsg);
+        return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
 
     }
 
@@ -114,7 +114,7 @@ public class PersonaliaSegment {
         }
     }
 
-    private void ValidateAddress() throws Exception {
+    private void ValidateAddresses() throws Exception {
         if (this.address == null) {
             throw new Exception("Address not supplied");
         }
@@ -138,8 +138,12 @@ public class PersonaliaSegment {
         }
     }
 
-    private void ValidateSummary() {}
+    private void ValidateSummary() {
+        return;
+    }
 
-    private void ValidateProfilePicture() {}
+    private void ValidateProfilePicture() {
+        return;
+    }
 
 }
