@@ -10,7 +10,7 @@ import lombok.Data;
 public class CertificationsSegment {
 
     @Data
-    private class Certification {
+    public class Certification {
 
         private String name;
         private String issuer;

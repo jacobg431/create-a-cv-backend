@@ -31,49 +31,80 @@ public class GenerateCvPayloadTests {
                     "country": "USA",
                     "summary": "Experienced software engineer"
                 },
-                "educationSegment": [
-                    {
-                        "school": "University of Technology",
-                        "degree": "Master of Science in Computer Science",
-                        "startDate": "2019-09-01T00:00:00.000Z",
-                        "endDate": "2021-06-01T00:00:00.000Z",
-                        "isStudying": false
-                    }
-                ],
-                "experienceSegment": [
-                    {
-                        "company": "Tech Solutions Inc",
-                        "position": "Senior Developer",
-                        "startDate": "2022-01-15T00:00:00.000Z",
-                        "endDate": "2024-01-15T00:00:00.000Z",
-                        "isWorking": true,
-                        "description": "Lead the development of several key projects."
-                    }
-                ],
+                "educationSegment": {
+                    educationList: [
+                        {
+                            "school": "University of Technology",
+                            "degree": "Master of Science in Computer Science",
+                            "startDate": "2019-09-01T00:00:00.000Z",
+                            "endDate": "2021-06-01T00:00:00.000Z",
+                            "isStudying": false
+                        }, {
+                            "school": "University of Technology",
+                            "degree": "Bachelor of Science in Computer Science",
+                            "startDate": "2016-09-01T00:00:00.000Z",
+                            "endDate": "2019-06-01T00:00:00.000Z",
+                            "isStudying": false
+                        }
+                    ]
+                },
+                "experienceSegment": {
+                    "experienceList": [
+                        {
+                            "company": "Tech Solutions Inc",
+                            "position": "Senior Developer",
+                            "startDate": "2022-01-15T00:00:00.000Z",
+                            "endDate": "2024-01-15T00:00:00.000Z",
+                            "isWorking": true,
+                            "description": "Lead the development of several key projects."
+                        }, {
+                            "company": "Data Services Ltd",
+                            "position": "Junior Developer",
+                            "startDate": "2019-01-15T00:00:00.000Z",
+                            "endDate": "2022-12-31T12:00:00.000Z",
+                            "isWorking": false,
+                            "description": "Full stack development in team."
+                        }
+                    ]
+                },
                 "skillsSegment": {
                     "skills": [
                         {"skill": "Java"},
                         {"skill": "Spring Boot"}
                     ]
                 },
-                "certificationsSegment": [
-                    {
-                        "name": "Certified Java Developer",
-                        "issuer": "Oracle",
-                        "startDate": "2020-05-01T00:00:00.000Z",
-                        "endDate": "2023-05-01T00:00:00.000Z",
-                        "isNotExpiring": false
-                    }
-                ],
-                "coursesSegment": [
-                    {
-                        "name": "Advanced Java Programming",
-                        "instructor": "Jane Doe",
-                        "completionDate": "2023-12-15T00:00:00.000Z",
-                        "duration": "6 weeks"
-                    }
-                ]
-            }
+                "certificationsSegment": {
+                    certificationList: [
+                        {
+                            "name": "Certified Java Developer",
+                            "issuer": "Oracle",
+                            "startDate": "2020-05-01T00:00:00.000Z",
+                            "endDate": "2023-05-01T00:00:00.000Z",
+                            "isNotExpiring": false
+                        }, {
+                            "name": "Certified JavaScript Developer",
+                            "issuer": "Oracle",
+                            "startDate": "2020-02-01T00:00:00.000Z",
+                            "endDate": "2010-02-01T00:00:00.000Z",
+                            "isNotExpiring": true
+                        }
+                    ]
+                },
+                "coursesSegment": {
+                    courseList: [
+                        {                        
+                            "name": "Advanced Java Programming",
+                            "instructor": "Jane Doe",
+                            "completionDate": "2023-12-15T00:00:00.000Z",
+                            "duration": "Weeks"
+                        }, {
+                            "name": "Intermediate Java Programming",
+                            "instructor": "Evelyn Monroe",
+                            "completionDate": "2023-09-15T00:00:00.000Z",
+                            "duration": "Weeks"
+                        }
+                    ]
+                }
             """;
 
         GenerateCvPayload payload = objectMapper.readValue(json, GenerateCvPayload.class);
@@ -91,37 +122,63 @@ public class GenerateCvPayloadTests {
         assertThat(payload.getPersonaliaSegment().getCountry()).isEqualTo("USA");
         assertThat(payload.getPersonaliaSegment().getSummary()).isEqualTo("Experienced software engineer");
 
-        assertThat(payload.getEducationSegment()).hasSize(1);
-        assertThat(payload.getEducationSegment().get(0).getSchool()).isEqualTo("University of Technology");
-        assertThat(payload.getEducationSegment().get(0).getDegree()).isEqualTo("Master of Science in Computer Science");
-        assertThat(payload.getEducationSegment().get(0).getStartDate()).isEqualTo("2019-09-01T00:00:00.000Z");
-        assertThat(payload.getEducationSegment().get(0).getEndDate()).isEqualTo("2021-06-01T00:00:00.000Z");
-        assertThat(payload.getEducationSegment().get(0).getIsStudying()).isFalse();
+        EducationSegment payloadEducationSegment = payload.getEducationSegment();
+        assertThat(payloadEducationSegment.getEducationList()).hasSize(2);
+        assertThat(payloadEducationSegment.getEducationList().get(0).getSchool()).isEqualTo("University of Technology");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getDegree()).isEqualTo("Master of Science in Computer Science");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getStartDate()).isEqualTo("2019-09-01T00:00:00.000Z");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getEndDate()).isEqualTo("2021-06-01T00:00:00.000Z");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getIsStudying()).isFalse();
+        assertThat(payloadEducationSegment.getEducationList().get(0).getSchool()).isEqualTo("University of Technology");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
+        assertThat(payloadEducationSegment.getEducationList().get(0).getIsStudying()).isFalse();
 
-        assertThat(payload.getExperienceSegment()).hasSize(1);
-        assertThat(payload.getExperienceSegment().get(0).getCompany()).isEqualTo("Tech Solutions Inc");
-        assertThat(payload.getExperienceSegment().get(0).getPosition()).isEqualTo("Senior Developer");
-        assertThat(payload.getExperienceSegment().get(0).getStartDate()).isEqualTo("2022-01-15T00:00:00.000Z");
-        assertThat(payload.getExperienceSegment().get(0).getEndDate()).isEqualTo("2024-01-15T00:00:00.000Z");
-        assertThat(payload.getExperienceSegment().get(0).getIsWorking()).isTrue();
-        assertThat(payload.getExperienceSegment().get(0).getDescription()).isEqualTo("Lead the development of several key projects.");
+        ExperienceSegment payloExperienceSegment = payload.getExperienceSegment();
+        assertThat(payloExperienceSegment.getExperienceList()).hasSize(2);
+        assertThat(payloExperienceSegment.getExperienceList().get(0).getCompany()).isEqualTo("Tech Solutions Inc");
+        assertThat(payloExperienceSegment.getExperienceList().get(0).getPosition()).isEqualTo("Senior Developer");
+        assertThat(payloExperienceSegment.getExperienceList().get(0).getStartDate()).isEqualTo("2022-01-15T00:00:00.000Z");
+        assertThat(payloExperienceSegment.getExperienceList().get(0).getEndDate()).isEqualTo("2024-01-15T00:00:00.000Z");
+        assertThat(payloExperienceSegment.getExperienceList().get(0).getIsWorking()).isTrue();
+        assertThat(payloExperienceSegment.getExperienceList().get(0).getDescription()).isEqualTo("Lead the development of several key projects.");
+        assertThat(payloExperienceSegment.getExperienceList().get(1).getCompany()).isEqualTo("Data Services Ltd");
+        assertThat(payloExperienceSegment.getExperienceList().get(1).getPosition()).isEqualTo("Junior Developer");
+        assertThat(payloExperienceSegment.getExperienceList().get(1).getStartDate()).isEqualTo("2019-01-15T00:00:00.000Z");
+        assertThat(payloExperienceSegment.getExperienceList().get(1).getEndDate()).isEqualTo("2022-12-31T12:00:00.000Z");
+        assertThat(payloExperienceSegment.getExperienceList().get(1).getIsWorking()).isFalse();
+        assertThat(payloExperienceSegment.getExperienceList().get(1).getDescription()).isEqualTo("Full stack development in team.");
 
-        assertThat(payload.getSkillsSegment().getSkills()).hasSize(2);
-        assertThat(payload.getSkillsSegment().getSkills().get(0).getSkill()).isEqualTo("Java");
-        assertThat(payload.getSkillsSegment().getSkills().get(1).getSkill()).isEqualTo("Spring Boot");
+        SkillsSegment payloadSkillsSegment = payload.getSkillsSegment();
+        assertThat(payloadSkillsSegment.getSkillList()).hasSize(3);
+        assertThat(payloadSkillsSegment.getSkillList().get(0).getSkill()).isEqualTo("Java");
+        assertThat(payloadSkillsSegment.getSkillList().get(1).getSkill()).isEqualTo("Spring Boot");
+        assertThat(payloadSkillsSegment.getSkillList().get(2).getSkill()).isEqualTo("Docker");
 
-        assertThat(payload.getCertificationsSegment()).hasSize(1);
-        assertThat(payload.getCertificationsSegment().get(0).getName()).isEqualTo("Certified Java Developer");
-        assertThat(payload.getCertificationsSegment().get(0).getIssuer()).isEqualTo("Oracle");
-        assertThat(payload.getCertificationsSegment().get(0).getStartDate()).isEqualTo("2020-05-01T00:00:00.000Z");
-        assertThat(payload.getCertificationsSegment().get(0).getEndDate()).isEqualTo("2023-05-01T00:00:00.000Z");
-        assertThat(payload.getCertificationsSegment().get(0).getIsNotExpiring()).isFalse();
+        CertificationsSegment certificationsSegment = payload.getCertificationsSegment();
+        assertThat(certificationsSegment.getCertificationList()).hasSize(2);
+        assertThat(certificationsSegment.getCertificationList().get(0).getName()).isEqualTo("Certified Java Developer");
+        assertThat(certificationsSegment.getCertificationList().get(0).getIssuer()).isEqualTo("Oracle");
+        assertThat(certificationsSegment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-05-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(0).getEndDate()).isEqualTo("2023-05-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(0).getIsNotExpiring()).isFalse();
+        assertThat(certificationsSegment.getCertificationList().get(0).getName()).isEqualTo("Certified JavaScript Developer");
+        assertThat(certificationsSegment.getCertificationList().get(0).getIssuer()).isEqualTo("Oracle");
+        assertThat(certificationsSegment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(0).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(0).getIsNotExpiring()).isTrue();
 
-        assertThat(payload.getCoursesSegment()).hasSize(1);
-        assertThat(payload.getCoursesSegment().get(0).getName()).isEqualTo("Advanced Java Programming");
-        assertThat(payload.getCoursesSegment().get(0).getInstructor()).isEqualTo("Jane Doe");
-        assertThat(payload.getCoursesSegment().get(0).getCompletionDate()).isEqualTo("2023-12-15T00:00:00.000Z");
-        assertThat(payload.getCoursesSegment().get(0).getDuration()).isEqualTo("6 weeks");
+        CoursesSegment coursesSegment = payload.getCoursesSegment();
+        assertThat(coursesSegment.getCourseList()).hasSize(2);
+        assertThat(coursesSegment.getCourseList().get(0).getName()).isEqualTo("Advanced Java Programming");
+        assertThat(coursesSegment.getCourseList().get(0).getInstructor()).isEqualTo("Jane Doe");
+        assertThat(coursesSegment.getCourseList().get(0).getCompletionDate()).isEqualTo("2023-12-15T00:00:00.000Z");
+        assertThat(coursesSegment.getCourseList().get(0).getDuration()).isEqualTo("Weeks");
+        assertThat(coursesSegment.getCourseList().get(1).getName()).isEqualTo("Intermediate Java Programming");
+        assertThat(coursesSegment.getCourseList().get(1).getInstructor()).isEqualTo("Evelyn Monroe");
+        assertThat(coursesSegment.getCourseList().get(1).getCompletionDate()).isEqualTo("2023-09-15T00:00:00.000Z");
+        assertThat(coursesSegment.getCourseList().get(1).getDuration()).isEqualTo("Weeks");
 
         String serializedJson = objectMapper.writeValueAsString(payload);
         assertThat(serializedJson).contains("\"firstName\":\"John\"");

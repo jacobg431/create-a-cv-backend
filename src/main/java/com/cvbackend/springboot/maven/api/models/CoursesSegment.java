@@ -8,7 +8,7 @@ import lombok.Data;
 public class CoursesSegment {
 
     @Data
-    private class Course {
+    public class Course {
 
         private String name;
         private String instructor;

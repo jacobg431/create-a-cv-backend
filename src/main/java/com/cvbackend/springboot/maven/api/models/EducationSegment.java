@@ -11,7 +11,7 @@ import lombok.Data;
 public class EducationSegment {
 
     @Data
-    private class Education {
+    public class Education {
 
         private String school;
         private String degree;
@@ -68,7 +68,7 @@ public class EducationSegment {
 
     }
 
-    private List<Education> EducationList;
+    private List<Education> educationList;
     private Boolean isValid;
     private String validationErrorMsg;
     private int instanceIndex;
@@ -81,7 +81,7 @@ public class EducationSegment {
 
         try {
 
-            for (Education education : this.EducationList) {
+            for (Education education : this.educationList) {
                 education.Validate(this.instanceIndex);
                 this.instanceIndex++;
             }
