@@ -7,20 +7,28 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.javatuples.Pair;
+
 @JsonTest
 public class PersonaliaSegmentTests {
 
-    @Autowired
     private ObjectMapper objectMapper;
+    private PersonaliaSegment personaliaSegment;
 
-    @Test
-    void testSerializationAndDeserialization() throws Exception {
+    @Autowired
+    public PersonaliaSegmentTests(ObjectMapper objectMapper, PersonaliaSegment personaliaSegment) {
+        this.objectMapper = objectMapper;
+        this.personaliaSegment = personaliaSegment;
+    }
+
+    private void setSegment() throws Exception {
+
         String json = """
             {
                 "firstName": "John",
                 "lastName": "Doe",
                 "email": "john.doe@example.com",
-                "phone": "1234567890",
+                "phone": "004799218492",
                 "dateOfBirth": "1980-01-01T00:00:00.000Z",
                 "gender": "Male",
                 "address": "123 Main St",
@@ -32,25 +40,33 @@ public class PersonaliaSegmentTests {
             }
             """;
 
-        PersonaliaSegment segment = objectMapper.readValue(json, PersonaliaSegment.class);
-        assertThat(segment.getFirstName()).isEqualTo("John");
-        assertThat(segment.getLastName()).isEqualTo("Doe");
-        assertThat(segment.getEmail()).isEqualTo("john.doe@example.com");
-        assertThat(segment.getPhone()).isEqualTo("1234567890");
-        assertThat(segment.getDateOfBirth()).isEqualTo("1980-01-01T00:00:00.000Z");
-        assertThat(segment.getGender()).isEqualTo("Male");
-        assertThat(segment.getAddress()).isEqualTo("123 Main St");
-        assertThat(segment.getAddress2()).isEqualTo("Apt 4");
-        assertThat(segment.getZipCode()).isEqualTo("10001");
-        assertThat(segment.getCity()).isEqualTo("New York");
-        assertThat(segment.getCountry()).isEqualTo("USA");
-        assertThat(segment.getSummary()).isEqualTo("Experienced software engineer");
+            this.personaliaSegment = this.objectMapper.readValue(json, PersonaliaSegment.class);
+
+        }
+
+    @Test
+    public void testSerializationAndDeserialization() throws Exception {
+
+        this.setSegment();
+
+        assertThat(this.personaliaSegment.getFirstName()).isEqualTo("John");
+        assertThat(this.personaliaSegment.getLastName()).isEqualTo("Doe");
+        assertThat(this.personaliaSegment.getEmail()).isEqualTo("john.doe@example.com");
+        assertThat(this.personaliaSegment.getPhone()).isEqualTo("004799218492");
+        assertThat(this.personaliaSegment.getDateOfBirth()).isEqualTo("1980-01-01T00:00:00.000Z");
+        assertThat(this.personaliaSegment.getGender()).isEqualTo("Male");
+        assertThat(this.personaliaSegment.getAddress()).isEqualTo("123 Main St");
+        assertThat(this.personaliaSegment.getAddress2()).isEqualTo("Apt 4");
+        assertThat(this.personaliaSegment.getZipCode()).isEqualTo("10001");
+        assertThat(this.personaliaSegment.getCity()).isEqualTo("New York");
+        assertThat(this.personaliaSegment.getCountry()).isEqualTo("USA");
+        assertThat(this.personaliaSegment.getSummary()).isEqualTo("Experienced software engineer");
     
-        String serializedJson = objectMapper.writeValueAsString(segment);
+        String serializedJson = this.objectMapper.writeValueAsString(this.personaliaSegment);
         assertThat(serializedJson).contains("John");
         assertThat(serializedJson).contains("Doe");
         assertThat(serializedJson).contains("john.doe@example.com");
-        assertThat(serializedJson).contains("1234567890");
+        assertThat(serializedJson).contains("004799218492");
         assertThat(serializedJson).contains("1980-01-01T00:00:00.000Z");
         assertThat(serializedJson).contains("Male");
         assertThat(serializedJson).contains("123 Main St");
@@ -59,6 +75,18 @@ public class PersonaliaSegmentTests {
         assertThat(serializedJson).contains("New York");
         assertThat(serializedJson).contains("USA");
         assertThat(serializedJson).contains("Experienced software engineer");
+
+    }
+
+    @Test
+    public void testValidation() throws Exception {
+
+        this.setSegment();
+
+        Pair<Boolean, String> validationOutput = this.personaliaSegment.Validate();
+        assertThat(validationOutput.getValue0()).isEqualTo(true);
+        assertThat(validationOutput.getValue1()).isNullOrEmpty();
+
     }
     
 }
