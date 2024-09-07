@@ -1,9 +1,12 @@
 package com.cvbackend.springboot.maven.api.models;
 
 import org.javatuples.Pair;
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 @Data
+@Component
 public class GenerateCvPayload {
 
     private PersonaliaSegment personaliaSegment;

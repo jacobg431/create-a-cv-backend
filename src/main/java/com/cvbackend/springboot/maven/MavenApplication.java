@@ -10,7 +10,7 @@ import com.cvbackend.springboot.maven.api.controllers.CvController;
 
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class})
 @EntityScan("com.web")
-@ComponentScan(basePackages = {"com.web"})
+@ComponentScan(basePackages = {"com.web", "com.cvbackend.springboot.maven.api.models"})
 @ComponentScan(basePackageClasses = CvController.class)
 public class MavenApplication {
 	public static void main(String[] args) {

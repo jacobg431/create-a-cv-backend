@@ -2,9 +2,12 @@ package com.cvbackend.springboot.maven.api.models;
 import java.util.List;
 
 import org.javatuples.Pair;
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 @Data
+@Component
 public class CoursesSegment {
 
     @Data

@@ -3,11 +3,14 @@ package com.cvbackend.springboot.maven.api.models;
 import lombok.Data;
 import java.util.Map;
 import org.javatuples.Pair;
+import org.springframework.stereotype.Component;
+
 import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;
 //import com.cvbackend.springboot.maven.api.utils.FileUtility;
 import com.cvbackend.springboot.maven.api.utils.StringUtility;
 
 @Data
+@Component
 public class PersonaliaSegment {
 
     final static Integer MAX_FILE_SIZE = 4_194_304;
