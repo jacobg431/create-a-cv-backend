@@ -10,11 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
 public class CoursesSegmentTests {
 
-    @Autowired
     private ObjectMapper objectMapper;
+    private CoursesSegment coursesSegment;
 
-    @Test
-    void testSerializationAndDeserialization() throws Exception {
+    @Autowired
+    public CoursesSegmentTests(ObjectMapper objectMapper, CoursesSegment coursesSegment) {
+        this.objectMapper = objectMapper;
+        this.coursesSegment = coursesSegment;
+    }
+
+    private void setSegment() throws Exception {
+        
         String json = """
             {
                 "courseList": [
@@ -33,20 +39,28 @@ public class CoursesSegmentTests {
             }
             """;
 
-        CoursesSegment segment = objectMapper.readValue(json, CoursesSegment.class);
-        assertThat(segment.getCourseList()).hasSize(2);
+        this.coursesSegment = this.objectMapper.readValue(json, CoursesSegment.class);
 
-        assertThat(segment.getCourseList().get(0).getName()).isEqualTo("Advanced Java Programming");
-        assertThat(segment.getCourseList().get(0).getInstructor()).isEqualTo("Jane Doe");
-        assertThat(segment.getCourseList().get(0).getCompletionDate()).isEqualTo("2023-12-15T00:00:00.000Z");
-        assertThat(segment.getCourseList().get(0).getDuration()).isEqualTo("Weeks");
+    }
 
-        assertThat(segment.getCourseList().get(1).getName()).isEqualTo("Intermediate Java Programming");
-        assertThat(segment.getCourseList().get(1).getInstructor()).isEqualTo("Evelyn Monroe");
-        assertThat(segment.getCourseList().get(1).getCompletionDate()).isEqualTo("2023-09-15T00:00:00.000Z");
-        assertThat(segment.getCourseList().get(1).getDuration()).isEqualTo("Weeks");
+    @Test
+    void testSerializationAndDeserialization() throws Exception {
 
-        String serializedJson = objectMapper.writeValueAsString(segment);
+        this.setSegment();
+
+        assertThat(this.coursesSegment.getCourseList()).hasSize(2);
+
+        assertThat(this.coursesSegment.getCourseList().get(0).getName()).isEqualTo("Advanced Java Programming");
+        assertThat(this.coursesSegment.getCourseList().get(0).getInstructor()).isEqualTo("Jane Doe");
+        assertThat(this.coursesSegment.getCourseList().get(0).getCompletionDate()).isEqualTo("2023-12-15T00:00:00.000Z");
+        assertThat(this.coursesSegment.getCourseList().get(0).getDuration()).isEqualTo("Weeks");
+
+        assertThat(this.coursesSegment.getCourseList().get(1).getName()).isEqualTo("Intermediate Java Programming");
+        assertThat(this.coursesSegment.getCourseList().get(1).getInstructor()).isEqualTo("Evelyn Monroe");
+        assertThat(this.coursesSegment.getCourseList().get(1).getCompletionDate()).isEqualTo("2023-09-15T00:00:00.000Z");
+        assertThat(this.coursesSegment.getCourseList().get(1).getDuration()).isEqualTo("Weeks");
+
+        String serializedJson = this.objectMapper.writeValueAsString(this.coursesSegment);
         assertThat(serializedJson).contains("Advanced Java Programming");
         assertThat(serializedJson).contains("Jane Doe");
         assertThat(serializedJson).contains("2023-12-15T00:00:00.000Z");

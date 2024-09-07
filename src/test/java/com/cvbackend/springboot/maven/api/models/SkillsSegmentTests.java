@@ -10,11 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
 public class SkillsSegmentTests {
 
-    @Autowired
     private ObjectMapper objectMapper;
+    private SkillsSegment skillsSegment;
 
-    @Test
-    void testSerializationAndDeserialization() throws Exception {
+    @Autowired
+    public SkillsSegmentTests(ObjectMapper objectMapper, SkillsSegment skillsSegment) {
+        this.objectMapper = objectMapper;
+        this.skillsSegment = skillsSegment;
+    }
+
+    private void setSegment() throws Exception {
+        
         String json = """
             {
                 "skillList": [
@@ -25,15 +31,24 @@ public class SkillsSegmentTests {
             }
             """;
 
-        SkillsSegment segment = objectMapper.readValue(json, SkillsSegment.class);
-        assertThat(segment.getSkillList()).hasSize(3);
-        assertThat(segment.getSkillList().get(0).getSkill()).isEqualTo("Java");
-        assertThat(segment.getSkillList().get(1).getSkill()).isEqualTo("Spring Boot");
-        assertThat(segment.getSkillList().get(2).getSkill()).isEqualTo("Docker");
+        this.skillsSegment = this.objectMapper.readValue(json, SkillsSegment.class);
 
-        String serializedJson = objectMapper.writeValueAsString(segment);
+    }
+
+    @Test
+    void testSerializationAndDeserialization() throws Exception {
+
+        this.setSegment();
+
+        assertThat(this.skillsSegment.getSkillList()).hasSize(3);
+        assertThat(this.skillsSegment.getSkillList().get(0).getSkill()).isEqualTo("Java");
+        assertThat(this.skillsSegment.getSkillList().get(1).getSkill()).isEqualTo("Spring Boot");
+        assertThat(this.skillsSegment.getSkillList().get(2).getSkill()).isEqualTo("Docker");
+
+        String serializedJson = this.objectMapper.writeValueAsString(this.skillsSegment);
         assertThat(serializedJson).contains("Java");
         assertThat(serializedJson).contains("Spring Boot");
         assertThat(serializedJson).contains("Docker");
+        
     }
 }

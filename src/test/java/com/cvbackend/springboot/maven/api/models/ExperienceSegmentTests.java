@@ -10,11 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
 public class ExperienceSegmentTests {
 
-    @Autowired
     private ObjectMapper objectMapper;
+    private ExperienceSegment experienceSegment;
 
-    @Test
-    void testSerializationAndDeserialization() throws Exception {
+    @Autowired
+    public ExperienceSegmentTests(ObjectMapper objectMapper, ExperienceSegment experienceSegment) {
+        this.objectMapper = objectMapper;
+        this.experienceSegment = experienceSegment;
+    }
+
+    private void setSegment() throws Exception {
+
         String json = """
             {
                 "experienceList": [
@@ -37,24 +43,32 @@ public class ExperienceSegmentTests {
             }
             """;
 
-        ExperienceSegment segment = objectMapper.readValue(json, ExperienceSegment.class);
-        assertThat(segment.getExperienceList()).hasSize(2);
+        this.experienceSegment = this.objectMapper.readValue(json, ExperienceSegment.class);
 
-        assertThat(segment.getExperienceList().get(0).getCompany()).isEqualTo("Tech Solutions Inc");
-        assertThat(segment.getExperienceList().get(0).getPosition()).isEqualTo("Senior Developer");
-        assertThat(segment.getExperienceList().get(0).getStartDate()).isEqualTo("2022-01-15T00:00:00.000Z");
-        assertThat(segment.getExperienceList().get(0).getEndDate()).isEqualTo("2024-01-15T00:00:00.000Z");
-        assertThat(segment.getExperienceList().get(0).getIsWorking()).isTrue();
-        assertThat(segment.getExperienceList().get(0).getDescription()).isEqualTo("Lead the development of several key projects.");
+    }
 
-        assertThat(segment.getExperienceList().get(1).getCompany()).isEqualTo("Data Services Ltd");
-        assertThat(segment.getExperienceList().get(1).getPosition()).isEqualTo("Junior Developer");
-        assertThat(segment.getExperienceList().get(1).getStartDate()).isEqualTo("2019-01-15T00:00:00.000Z");
-        assertThat(segment.getExperienceList().get(1).getEndDate()).isEqualTo("2022-12-31T12:00:00.000Z");
-        assertThat(segment.getExperienceList().get(1).getIsWorking()).isFalse();
-        assertThat(segment.getExperienceList().get(1).getDescription()).isEqualTo("Full stack development in team.");
+    @Test
+    void testSerializationAndDeserialization() throws Exception {
 
-        String serializedJson = objectMapper.writeValueAsString(segment);
+        this.setSegment();
+
+        assertThat(this.experienceSegment.getExperienceList()).hasSize(2);
+
+        assertThat(this.experienceSegment.getExperienceList().get(0).getCompany()).isEqualTo("Tech Solutions Inc");
+        assertThat(this.experienceSegment.getExperienceList().get(0).getPosition()).isEqualTo("Senior Developer");
+        assertThat(this.experienceSegment.getExperienceList().get(0).getStartDate()).isEqualTo("2022-01-15T00:00:00.000Z");
+        assertThat(this.experienceSegment.getExperienceList().get(0).getEndDate()).isEqualTo("2024-01-15T00:00:00.000Z");
+        assertThat(this.experienceSegment.getExperienceList().get(0).getIsWorking()).isTrue();
+        assertThat(this.experienceSegment.getExperienceList().get(0).getDescription()).isEqualTo("Lead the development of several key projects.");
+
+        assertThat(this.experienceSegment.getExperienceList().get(1).getCompany()).isEqualTo("Data Services Ltd");
+        assertThat(this.experienceSegment.getExperienceList().get(1).getPosition()).isEqualTo("Junior Developer");
+        assertThat(this.experienceSegment.getExperienceList().get(1).getStartDate()).isEqualTo("2019-01-15T00:00:00.000Z");
+        assertThat(this.experienceSegment.getExperienceList().get(1).getEndDate()).isEqualTo("2022-12-31T12:00:00.000Z");
+        assertThat(this.experienceSegment.getExperienceList().get(1).getIsWorking()).isFalse();
+        assertThat(this.experienceSegment.getExperienceList().get(1).getDescription()).isEqualTo("Full stack development in team.");
+
+        String serializedJson = this.objectMapper.writeValueAsString(this.experienceSegment);
         assertThat(serializedJson).contains("Tech Solutions Inc");
         assertThat(serializedJson).contains("Senior Developer");
         assertThat(serializedJson).contains("2022-01-15T00:00:00.000Z");

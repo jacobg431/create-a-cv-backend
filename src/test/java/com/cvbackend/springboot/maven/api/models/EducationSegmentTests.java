@@ -10,11 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
 public class EducationSegmentTests {
 
-    @Autowired
     private ObjectMapper objectMapper;
+    private EducationSegment educationSegment;
 
-    @Test
-    void testSerializationAndDeserialization() throws Exception {
+    @Autowired
+    public EducationSegmentTests(ObjectMapper objectMapper, EducationSegment educationSegment) {
+        this.objectMapper = objectMapper;
+        this.educationSegment = educationSegment;
+    }
+
+    private void setSegment() throws Exception {
+
         String json = """
             {
                 "educationList": [
@@ -35,22 +41,30 @@ public class EducationSegmentTests {
             }
             """;
 
-        EducationSegment segment = objectMapper.readValue(json, EducationSegment.class);
-        assertThat(segment.getEducationList()).hasSize(2);
+        this.educationSegment = this.objectMapper.readValue(json, EducationSegment.class);
 
-        assertThat(segment.getEducationList().get(0).getSchool()).isEqualTo("University of Technology");
-        assertThat(segment.getEducationList().get(0).getDegree()).isEqualTo("Master of Science in Computer Science");
-        assertThat(segment.getEducationList().get(0).getStartDate()).isEqualTo("2019-09-01T00:00:00.000Z");
-        assertThat(segment.getEducationList().get(0).getEndDate()).isEqualTo("2021-06-01T00:00:00.000Z");
-        assertThat(segment.getEducationList().get(0).getIsStudying()).isFalse();
+    }
+
+    @Test
+    void testSerializationAndDeserialization() throws Exception {
+
+        this.setSegment();
+
+        assertThat(this.educationSegment.getEducationList()).hasSize(2);
+
+        assertThat(this.educationSegment.getEducationList().get(0).getSchool()).isEqualTo("University of Technology");
+        assertThat(this.educationSegment.getEducationList().get(0).getDegree()).isEqualTo("Master of Science in Computer Science");
+        assertThat(this.educationSegment.getEducationList().get(0).getStartDate()).isEqualTo("2019-09-01T00:00:00.000Z");
+        assertThat(this.educationSegment.getEducationList().get(0).getEndDate()).isEqualTo("2021-06-01T00:00:00.000Z");
+        assertThat(this.educationSegment.getEducationList().get(0).getIsStudying()).isFalse();
         
-        assertThat(segment.getEducationList().get(1).getSchool()).isEqualTo("University of Technology");
-        assertThat(segment.getEducationList().get(1).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
-        assertThat(segment.getEducationList().get(1).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
-        assertThat(segment.getEducationList().get(1).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
-        assertThat(segment.getEducationList().get(1).getIsStudying()).isFalse();
+        assertThat(this.educationSegment.getEducationList().get(1).getSchool()).isEqualTo("University of Technology");
+        assertThat(this.educationSegment.getEducationList().get(1).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
+        assertThat(this.educationSegment.getEducationList().get(1).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
+        assertThat(this.educationSegment.getEducationList().get(1).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
+        assertThat(this.educationSegment.getEducationList().get(1).getIsStudying()).isFalse();
 
-        String serializedJson = objectMapper.writeValueAsString(segment);
+        String serializedJson = this.objectMapper.writeValueAsString(this.educationSegment);
         assertThat(serializedJson).contains("University of Technology");
         assertThat(serializedJson).contains("Master of Science in Computer Science");
         assertThat(serializedJson).contains("2019-09-01T00:00:00.000Z");
