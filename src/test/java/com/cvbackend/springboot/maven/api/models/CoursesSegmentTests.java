@@ -17,7 +17,7 @@ public class CoursesSegmentTests {
     void testSerializationAndDeserialization() throws Exception {
         String json = """
             {
-                courseList: [
+                "courseList": [
                     {                        
                         "name": "Advanced Java Programming",
                         "instructor": "Jane Doe",

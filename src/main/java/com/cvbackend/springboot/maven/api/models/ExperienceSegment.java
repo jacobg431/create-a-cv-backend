@@ -9,7 +9,7 @@ import lombok.Data;
 public class ExperienceSegment {
 
     @Data
-    public class Experience  {
+    public static class Experience  {
 
         private String company;
         private String position;

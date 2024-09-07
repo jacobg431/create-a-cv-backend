@@ -32,7 +32,7 @@ public class GenerateCvPayloadTests {
                     "summary": "Experienced software engineer"
                 },
                 "educationSegment": {
-                    educationList: [
+                    "educationList": [
                         {
                             "school": "University of Technology",
                             "degree": "Master of Science in Computer Science",
@@ -68,13 +68,14 @@ public class GenerateCvPayloadTests {
                     ]
                 },
                 "skillsSegment": {
-                    "skills": [
+                    "skillList": [
                         {"skill": "Java"},
-                        {"skill": "Spring Boot"}
+                        {"skill": "Spring Boot"},
+                        {"skill": "Docker"}
                     ]
                 },
                 "certificationsSegment": {
-                    certificationList: [
+                    "certificationList": [
                         {
                             "name": "Certified Java Developer",
                             "issuer": "Oracle",
@@ -91,7 +92,7 @@ public class GenerateCvPayloadTests {
                     ]
                 },
                 "coursesSegment": {
-                    courseList: [
+                    "courseList": [
                         {                        
                             "name": "Advanced Java Programming",
                             "instructor": "Jane Doe",
@@ -105,6 +106,7 @@ public class GenerateCvPayloadTests {
                         }
                     ]
                 }
+            }
             """;
 
         GenerateCvPayload payload = objectMapper.readValue(json, GenerateCvPayload.class);
@@ -129,11 +131,11 @@ public class GenerateCvPayloadTests {
         assertThat(payloadEducationSegment.getEducationList().get(0).getStartDate()).isEqualTo("2019-09-01T00:00:00.000Z");
         assertThat(payloadEducationSegment.getEducationList().get(0).getEndDate()).isEqualTo("2021-06-01T00:00:00.000Z");
         assertThat(payloadEducationSegment.getEducationList().get(0).getIsStudying()).isFalse();
-        assertThat(payloadEducationSegment.getEducationList().get(0).getSchool()).isEqualTo("University of Technology");
-        assertThat(payloadEducationSegment.getEducationList().get(0).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
-        assertThat(payloadEducationSegment.getEducationList().get(0).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
-        assertThat(payloadEducationSegment.getEducationList().get(0).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
-        assertThat(payloadEducationSegment.getEducationList().get(0).getIsStudying()).isFalse();
+        assertThat(payloadEducationSegment.getEducationList().get(1).getSchool()).isEqualTo("University of Technology");
+        assertThat(payloadEducationSegment.getEducationList().get(1).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
+        assertThat(payloadEducationSegment.getEducationList().get(1).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
+        assertThat(payloadEducationSegment.getEducationList().get(1).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
+        assertThat(payloadEducationSegment.getEducationList().get(1).getIsStudying()).isFalse();
 
         ExperienceSegment payloExperienceSegment = payload.getExperienceSegment();
         assertThat(payloExperienceSegment.getExperienceList()).hasSize(2);
@@ -163,11 +165,11 @@ public class GenerateCvPayloadTests {
         assertThat(certificationsSegment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-05-01T00:00:00.000Z");
         assertThat(certificationsSegment.getCertificationList().get(0).getEndDate()).isEqualTo("2023-05-01T00:00:00.000Z");
         assertThat(certificationsSegment.getCertificationList().get(0).getIsNotExpiring()).isFalse();
-        assertThat(certificationsSegment.getCertificationList().get(0).getName()).isEqualTo("Certified JavaScript Developer");
-        assertThat(certificationsSegment.getCertificationList().get(0).getIssuer()).isEqualTo("Oracle");
-        assertThat(certificationsSegment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
-        assertThat(certificationsSegment.getCertificationList().get(0).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
-        assertThat(certificationsSegment.getCertificationList().get(0).getIsNotExpiring()).isTrue();
+        assertThat(certificationsSegment.getCertificationList().get(1).getName()).isEqualTo("Certified JavaScript Developer");
+        assertThat(certificationsSegment.getCertificationList().get(1).getIssuer()).isEqualTo("Oracle");
+        assertThat(certificationsSegment.getCertificationList().get(1).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(1).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(1).getIsNotExpiring()).isTrue();
 
         CoursesSegment coursesSegment = payload.getCoursesSegment();
         assertThat(coursesSegment.getCourseList()).hasSize(2);

@@ -8,7 +8,7 @@ import lombok.Data;
 public class SkillsSegment {
 
     @Data
-    public class Skill {
+    public static class Skill {
 
         private String skill;
         private int instanceIndex;

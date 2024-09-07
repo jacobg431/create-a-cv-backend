@@ -17,7 +17,7 @@ public class SkillsSegmentTests {
     void testSerializationAndDeserialization() throws Exception {
         String json = """
             {
-                "skills": [
+                "skillList": [
                     {"skill": "Java"},
                     {"skill": "Spring Boot"},
                     {"skill": "Docker"}

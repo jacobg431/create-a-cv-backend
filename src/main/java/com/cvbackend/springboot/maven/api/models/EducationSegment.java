@@ -11,7 +11,7 @@ import lombok.Data;
 public class EducationSegment {
 
     @Data
-    public class Education {
+    public static class Education {
 
         private String school;
         private String degree;

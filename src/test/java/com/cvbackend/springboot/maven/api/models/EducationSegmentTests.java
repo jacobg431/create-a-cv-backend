@@ -17,7 +17,7 @@ public class EducationSegmentTests {
     void testSerializationAndDeserialization() throws Exception {
         String json = """
             {
-                educationList: [
+                "educationList": [
                     {
                         "school": "University of Technology",
                         "degree": "Master of Science in Computer Science",
@@ -44,11 +44,11 @@ public class EducationSegmentTests {
         assertThat(segment.getEducationList().get(0).getEndDate()).isEqualTo("2021-06-01T00:00:00.000Z");
         assertThat(segment.getEducationList().get(0).getIsStudying()).isFalse();
         
-        assertThat(segment.getEducationList().get(0).getSchool()).isEqualTo("University of Technology");
-        assertThat(segment.getEducationList().get(0).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
-        assertThat(segment.getEducationList().get(0).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
-        assertThat(segment.getEducationList().get(0).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
-        assertThat(segment.getEducationList().get(0).getIsStudying()).isFalse();
+        assertThat(segment.getEducationList().get(1).getSchool()).isEqualTo("University of Technology");
+        assertThat(segment.getEducationList().get(1).getDegree()).isEqualTo("Bachelor of Science in Computer Science");
+        assertThat(segment.getEducationList().get(1).getStartDate()).isEqualTo("2016-09-01T00:00:00.000Z");
+        assertThat(segment.getEducationList().get(1).getEndDate()).isEqualTo("2019-06-01T00:00:00.000Z");
+        assertThat(segment.getEducationList().get(1).getIsStudying()).isFalse();
 
         String serializedJson = objectMapper.writeValueAsString(segment);
         assertThat(serializedJson).contains("University of Technology");

@@ -17,7 +17,7 @@ public class CertificationsSegmentTests {
     void testSerializationAndDeserialization() throws Exception {
         String json = """
             {
-                certificationList: [
+                "certificationList": [
                     {
                         "name": "Certified Java Developer",
                         "issuer": "Oracle",
@@ -44,11 +44,11 @@ public class CertificationsSegmentTests {
         assertThat(segment.getCertificationList().get(0).getEndDate()).isEqualTo("2023-05-01T00:00:00.000Z");
         assertThat(segment.getCertificationList().get(0).getIsNotExpiring()).isFalse();
 
-        assertThat(segment.getCertificationList().get(0).getName()).isEqualTo("Certified JavaScript Developer");
-        assertThat(segment.getCertificationList().get(0).getIssuer()).isEqualTo("Oracle");
-        assertThat(segment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
-        assertThat(segment.getCertificationList().get(0).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
-        assertThat(segment.getCertificationList().get(0).getIsNotExpiring()).isTrue();
+        assertThat(segment.getCertificationList().get(1).getName()).isEqualTo("Certified JavaScript Developer");
+        assertThat(segment.getCertificationList().get(1).getIssuer()).isEqualTo("Oracle");
+        assertThat(segment.getCertificationList().get(1).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
+        assertThat(segment.getCertificationList().get(1).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
+        assertThat(segment.getCertificationList().get(1).getIsNotExpiring()).isTrue();
 
         String serializedJson = objectMapper.writeValueAsString(segment);
         assertThat(serializedJson).contains("Certified Java Developer");
