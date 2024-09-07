@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class StringUtility {
 
     public static boolean IsPatternMatching(String matcher, String regexPattern) {
-        return Pattern.compile(regexPattern).matcher(regexPattern).matches();
+        return Pattern.compile(regexPattern).matcher(matcher).matches();
     }
 
 }

@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.javatuples.Pair;
+
 @JsonTest
 public class PersonaliaSegmentTests {
 
@@ -26,7 +28,7 @@ public class PersonaliaSegmentTests {
                 "firstName": "John",
                 "lastName": "Doe",
                 "email": "john.doe@example.com",
-                "phone": "1234567890",
+                "phone": "004799218492",
                 "dateOfBirth": "1980-01-01T00:00:00.000Z",
                 "gender": "Male",
                 "address": "123 Main St",
@@ -43,14 +45,14 @@ public class PersonaliaSegmentTests {
         }
 
     @Test
-    void testSerializationAndDeserialization() throws Exception {
+    public void testSerializationAndDeserialization() throws Exception {
 
         this.setSegment();
 
         assertThat(this.personaliaSegment.getFirstName()).isEqualTo("John");
         assertThat(this.personaliaSegment.getLastName()).isEqualTo("Doe");
         assertThat(this.personaliaSegment.getEmail()).isEqualTo("john.doe@example.com");
-        assertThat(this.personaliaSegment.getPhone()).isEqualTo("1234567890");
+        assertThat(this.personaliaSegment.getPhone()).isEqualTo("004799218492");
         assertThat(this.personaliaSegment.getDateOfBirth()).isEqualTo("1980-01-01T00:00:00.000Z");
         assertThat(this.personaliaSegment.getGender()).isEqualTo("Male");
         assertThat(this.personaliaSegment.getAddress()).isEqualTo("123 Main St");
@@ -64,7 +66,7 @@ public class PersonaliaSegmentTests {
         assertThat(serializedJson).contains("John");
         assertThat(serializedJson).contains("Doe");
         assertThat(serializedJson).contains("john.doe@example.com");
-        assertThat(serializedJson).contains("1234567890");
+        assertThat(serializedJson).contains("004799218492");
         assertThat(serializedJson).contains("1980-01-01T00:00:00.000Z");
         assertThat(serializedJson).contains("Male");
         assertThat(serializedJson).contains("123 Main St");
@@ -73,6 +75,17 @@ public class PersonaliaSegmentTests {
         assertThat(serializedJson).contains("New York");
         assertThat(serializedJson).contains("USA");
         assertThat(serializedJson).contains("Experienced software engineer");
+
+    }
+
+    @Test
+    public void testValidation() throws Exception {
+
+        this.setSegment();
+
+        Pair<Boolean, String> validationOutput = this.personaliaSegment.Validate();
+        assertThat(validationOutput.getValue0()).isEqualTo(true);
+        assertThat(validationOutput.getValue1()).isNullOrEmpty();
 
     }
     

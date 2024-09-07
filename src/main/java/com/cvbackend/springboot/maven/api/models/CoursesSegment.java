@@ -52,8 +52,11 @@ public class CoursesSegment {
             if (this.duration == null) {
                 throw new Exception("Duration not supplied for certification instance " + this.instanceIndex);
             }
-            if (this.duration != "Hours" || this.duration != "Days"|| this.duration != "Weeks"|| this.duration != "Months") {
-                throw new Exception("Gender must be either 'Female' or 'Male' for certification instance " + this.instanceIndex);
+            if (!this.duration.equals("Hours") && 
+                !this.duration.equals("Days") && 
+                !this.duration.equals("Weeks") && 
+                !this.duration.equals("Months")) {
+                throw new Exception("Duration input not valid for certification instance " + this.instanceIndex);
             }
         }
 

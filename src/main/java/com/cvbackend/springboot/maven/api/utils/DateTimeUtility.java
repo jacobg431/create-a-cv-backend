@@ -1,9 +1,10 @@
 package com.cvbackend.springboot.maven.api.utils;
 
 import java.time.DateTimeException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 
 public class DateTimeUtility {
@@ -20,7 +21,7 @@ public class DateTimeUtility {
     }
 
     public static LocalDateTime DateTimeStringToObject(String dateTimeString) {
-        return LocalDateTime.from(DateTimeFormatter.ISO_INSTANT.parse(dateTimeString));
+        return Instant.parse(dateTimeString).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     public static boolean IsFormerDateEarlierThanLatterDate(LocalDateTime formerDateTime, LocalDateTime latterDateTime) {

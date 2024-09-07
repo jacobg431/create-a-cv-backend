@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.javatuples.Pair;
+
 @JsonTest
 public class GenerateCvPayloadTests {
 
@@ -48,7 +50,7 @@ public class GenerateCvPayloadTests {
                     "firstName": "John",
                     "lastName": "Doe",
                     "email": "john.doe@example.com",
-                    "phone": "1234567890",
+                    "phone": "004799218492",
                     "dateOfBirth": "1980-01-01T00:00:00.000Z",
                     "gender": "Male",
                     "address": "123 Main St",
@@ -154,7 +156,7 @@ public class GenerateCvPayloadTests {
         assertThat(this.personaliaSegment.getFirstName()).isEqualTo("John");
         assertThat(this.personaliaSegment.getLastName()).isEqualTo("Doe");
         assertThat(this.personaliaSegment.getEmail()).isEqualTo("john.doe@example.com");
-        assertThat(this.personaliaSegment.getPhone()).isEqualTo("1234567890");
+        assertThat(this.personaliaSegment.getPhone()).isEqualTo("004799218492");
         assertThat(this.personaliaSegment.getDateOfBirth()).isEqualTo("1980-01-01T00:00:00.000Z");
         assertThat(this.personaliaSegment.getGender()).isEqualTo("Male");
         assertThat(this.personaliaSegment.getAddress()).isEqualTo("123 Main St");
@@ -230,7 +232,13 @@ public class GenerateCvPayloadTests {
 
     @Test
     public void testValidation() throws Exception {
+
         this.setSegments();
+
+        Pair<Boolean, String> validationOutput = this.payload.Validate();
+        assertThat(validationOutput.getValue0()).isEqualTo(true);
+        assertThat(validationOutput.getValue1()).isNullOrEmpty();
+
     }
 
 }

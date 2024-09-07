@@ -33,32 +33,32 @@ public class CertificationsSegment {
         }
 
         private void ValidateName() throws Exception {
-            if (this.name == null) {
+            if (this.name == null || this.name.isBlank()) {
                 throw new Exception("Certification name not supplied for certification instance " + this.instanceIndex);
             }
         }
     
         private void ValidateIssuer() throws Exception {
-            if (this.issuer == null) {
+            if (this.issuer == null || this.issuer.isBlank()) {
                 throw new Exception("Issuer organization not supplied for certification instance " + this.instanceIndex);
             }
         }
     
         private void ValidateCertificationDates() throws Exception {
     
-            if (this.startDate == null) {
+            if (this.startDate == null || this.startDate.isBlank()) {
                 throw new Exception("Start date not supplied for certification instance " + this.instanceIndex);
             }
             if (!DateTimeUtility.IsValidDateTime(this.startDate)) {
                 throw new Exception("Start date not valid for certification instance " + this.instanceIndex);
             }
-            if (this.endDate == null && this.isNotExpiring) {
+            if (this.isNotExpiring) {
                 return;
             }
-            if (this.endDate == null && !this.isNotExpiring) {
+            if (this.endDate == null || this.endDate.isBlank()) {
                 throw new Exception("End date not supplied for certification instance " + this.instanceIndex);
             }
-            if (!this.isNotExpiring && !DateTimeUtility.IsValidDateTime(this.endDate)) {
+            if (!DateTimeUtility.IsValidDateTime(this.endDate)) {
                 throw new Exception("End date not valid for certification instance " + this.instanceIndex);
             }
             if (!DateTimeUtility.IsFormerDateEarlierThanLatterDate(

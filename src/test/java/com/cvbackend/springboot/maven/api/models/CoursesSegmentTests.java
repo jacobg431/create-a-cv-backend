@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.javatuples.Pair;
+
 @JsonTest
 public class CoursesSegmentTests {
 
@@ -71,4 +73,16 @@ public class CoursesSegmentTests {
         assertThat(serializedJson).contains("2023-09-15T00:00:00.000Z");
         assertThat(serializedJson).contains("Weeks");
     }
+
+    @Test
+    public void testValidation() throws Exception {
+
+        this.setSegment();
+
+        Pair<Boolean, String> validationOutput = this.coursesSegment.Validate();
+        assertThat(validationOutput.getValue0()).isEqualTo(true);
+        assertThat(validationOutput.getValue1()).isNullOrEmpty();
+
+    }
+
 }

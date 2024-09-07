@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.javatuples.Pair;
+
 @JsonTest
 public class SkillsSegmentTests {
 
@@ -51,4 +53,16 @@ public class SkillsSegmentTests {
         assertThat(serializedJson).contains("Docker");
         
     }
+
+    @Test
+    public void testValidation() throws Exception {
+
+        this.setSegment();
+
+        Pair<Boolean, String> validationOutput = this.skillsSegment.Validate();
+        assertThat(validationOutput.getValue0()).isEqualTo(true);
+        assertThat(validationOutput.getValue1()).isNullOrEmpty();
+
+    }
+
 }

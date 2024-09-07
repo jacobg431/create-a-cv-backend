@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.javatuples.Pair;
+
 @JsonTest
 public class ExperienceSegmentTests {
 
@@ -83,4 +85,16 @@ public class ExperienceSegmentTests {
         assertThat(serializedJson).contains("false");
         assertThat(serializedJson).contains("Full stack development in team.");
     }
+
+    @Test
+    public void testValidation() throws Exception {
+
+        this.setSegment();
+
+        Pair<Boolean, String> validationOutput = this.experienceSegment.Validate();
+        assertThat(validationOutput.getValue0()).isEqualTo(true);
+        assertThat(validationOutput.getValue1()).isNullOrEmpty();
+
+    }
+
 }

@@ -14,7 +14,7 @@ import com.cvbackend.springboot.maven.api.utils.StringUtility;
 public class PersonaliaSegment {
 
     final static Integer MAX_FILE_SIZE = 4_194_304;
-    final static String EMAIL_PATTERN = "^(.+)@(\\\\S+)$";
+    final static String EMAIL_PATTERN = "^(.+)@(\\S+)$";
     final static String PHONE_PATTERN = "^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$";
 
     private String firstName;
@@ -111,7 +111,7 @@ public class PersonaliaSegment {
         if (this.gender == null) {
             throw new Exception("Gender not supplied");
         }
-        if (this.gender != "Female" || this.gender != "Male") {
+        if (!this.gender.equals("Female") && !this.gender.equals("Male")) {
             throw new Exception("Gender must be either 'Female' or 'Male'");
         }
     }
