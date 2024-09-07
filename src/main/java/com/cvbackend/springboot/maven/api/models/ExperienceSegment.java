@@ -34,32 +34,32 @@ public class ExperienceSegment {
         }
 
         private void ValidateCompany() throws Exception {
-            if (this.company == null) {
+            if (this.company == null || this.company.isBlank()) {
                 throw new Exception("Company name not supplied for experience instance " + this.instanceIndex);
             }
         }
     
         private void ValidatePosition() throws Exception {
-            if (this.position == null) {
+            if (this.position == null || this.position.isBlank()) {
                 throw new Exception("Position not supplied for experience instance " + this.instanceIndex);
             }
         }
     
         private void ValidateExperienceDates() throws Exception {
     
-            if (this.startDate == null) {
+            if (this.startDate == null || this.startDate.isBlank()) {
                 throw new Exception("Start date not supplied for experience instance " + this.instanceIndex);
             }
             if (!DateTimeUtility.IsValidDateTime(startDate)) {
                 throw new Exception("Start date not valid for experience instance " + this.instanceIndex);
             }
-            if (this.endDate == null && this.isWorking) {
+            if (this.isWorking) {
                 return;
             }
-            if (this.endDate == null && !this.isWorking) {
+            if (this.endDate == null || this.endDate.isBlank()) {
                 throw new Exception("End date not supplied for experience instance " + this.instanceIndex);
             }
-            if (!this.isWorking && !DateTimeUtility.IsValidDateTime(this.endDate)) {
+            if (!DateTimeUtility.IsValidDateTime(this.endDate)) {
                 throw new Exception("End date not valid for experience instance " + this.instanceIndex);
             }
             if (!DateTimeUtility.IsFormerDateEarlierThanLatterDate(

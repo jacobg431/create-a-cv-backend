@@ -22,7 +22,7 @@ public class SkillsSegment {
         }
 
         private void ValidateSkill() throws Exception {
-            if (this.skill == null) {
+            if (this.skill == null || this.skill.isBlank()) {
                 throw new Exception("Skill not supplied for skill instance " + this.instanceIndex);
             }
         }

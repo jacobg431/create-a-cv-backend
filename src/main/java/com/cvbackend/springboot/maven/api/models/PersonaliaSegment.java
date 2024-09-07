@@ -64,19 +64,19 @@ public class PersonaliaSegment {
     }
 
     private void ValidateFirstName() throws Exception {
-        if (this.firstName == null) {
+        if (this.firstName == null || this.firstName.isBlank()) {
             throw new Exception("First name not supplied");
         }
     }
 
     private void ValidateLastName() throws Exception {
-        if (this.lastName == null) {
+        if (this.lastName == null || this.lastName.isBlank()) {
             throw new Exception("Last name not supplied");
         }
     }
 
     private void ValidateEmail() throws Exception {
-        if (this.email == null) {
+        if (this.email == null || this.email.isBlank()) {
             throw new Exception("Email not supplied");
         }
         if (!StringUtility.IsPatternMatching(this.email, EMAIL_PATTERN)) {
@@ -85,7 +85,7 @@ public class PersonaliaSegment {
     }
 
     private void ValidatePhone() throws Exception {
-        if (this.phone == null) {
+        if (this.phone == null || this.phone.isBlank()) {
             throw new Exception("Phone number not supplied");
         }
         if (!StringUtility.IsPatternMatching(this.phone, PHONE_PATTERN)) {
@@ -94,7 +94,7 @@ public class PersonaliaSegment {
     }
 
     private void ValidateDateOfBirth() throws Exception {
-        if (this.dateOfBirth == null) {
+        if (this.dateOfBirth == null || this.dateOfBirth.isBlank()) {
             throw new Exception("Date of birth not supplied");
         }
         if (!DateTimeUtility.IsValidDateTime(this.dateOfBirth)) {
@@ -108,7 +108,7 @@ public class PersonaliaSegment {
     }
 
     private void ValidateGender() throws Exception {
-        if (this.gender == null) {
+        if (this.gender == null || this.gender.isBlank()) {
             throw new Exception("Gender not supplied");
         }
         if (!this.gender.equals("Female") && !this.gender.equals("Male")) {
@@ -117,25 +117,25 @@ public class PersonaliaSegment {
     }
 
     private void ValidateAddresses() throws Exception {
-        if (this.address == null) {
+        if (this.address == null || this.address.isBlank()) {
             throw new Exception("Address not supplied");
         }
     }
 
     private void ValidateZipCode() throws Exception {
-        if (this.zipCode == null) {
+        if (this.zipCode == null || this.zipCode.isBlank()) {
             throw new Exception("Zip Code not supplied");
         }
     }
 
     private void ValidateCity() throws Exception {
-        if (this.city == null) {
+        if (this.city == null || this.city.isBlank()) {
             throw new Exception("City not supplied");
         }
     }
 
     private void ValidateCountry() throws Exception {
-        if (this.country == null) {
+        if (this.country == null || this.country.isBlank()) {
             throw new Exception("Country not supplied");
         }
     }

@@ -31,25 +31,25 @@ public class CoursesSegment {
         }
 
         private void ValidateName() throws Exception {
-            if (this.name == null) {
+            if (this.name == null || this.name.isBlank()) {
                 throw new Exception("Course name not supplied for course instance " + this.instanceIndex);
             }
         }
     
         private void ValidateInstructor() throws Exception {
-            if (this.instructor == null) {
+            if (this.instructor == null || this.instructor.isBlank()) {
                 throw new Exception("Instructor not supplied for course instance " + this.instanceIndex);
             }
         }
     
         private void ValidateCompletionDate() throws Exception {
-            if (this.completionDate == null) {
+            if (this.completionDate == null || this.completionDate.isBlank()) {
                 throw new Exception("Start date not supplied for certification instance " + this.instanceIndex);
             }
         }
     
         private void ValidateDuration() throws Exception {
-            if (this.duration == null) {
+            if (this.duration == null || this.duration.isBlank()) {
                 throw new Exception("Duration not supplied for certification instance " + this.instanceIndex);
             }
             if (!this.duration.equals("Hours") && 

@@ -33,7 +33,7 @@ public class EducationSegment {
         }
 
         private void ValidateSchool() throws Exception {
-            if (this.school == null) {
+            if (this.school == null || this.school.isBlank()) {
                 throw new Exception("School name not supplied for education instance " + this.instanceIndex);
             }
         }
@@ -44,19 +44,19 @@ public class EducationSegment {
     
         private void ValidateEducationDates() throws Exception {
     
-            if (this.startDate == null) {
+            if (this.startDate == null || this.startDate.isBlank()) {
                 throw new Exception("Start date not supplied for education instance " + this.instanceIndex);
             }
             if (!DateTimeUtility.IsValidDateTime(this.startDate)) {
                 throw new Exception("Start date not valid for education instance " + this.instanceIndex);
             }
-            if (this.endDate == null && this.isStudying) {
+            if (this.isStudying) {
                 return;
             }
-            if (this.endDate == null && !this.isStudying) {
+            if (this.endDate == null || this.endDate.isBlank()) {
                 throw new Exception("End date not supplied for education instance " + this.instanceIndex);
             }
-            if (!this.isStudying && !DateTimeUtility.IsValidDateTime(this.endDate)) {
+            if (!DateTimeUtility.IsValidDateTime(this.endDate)) {
                 throw new Exception("End date not valid for education instance " + this.instanceIndex);
             }
             if (!DateTimeUtility.IsFormerDateEarlierThanLatterDate(
