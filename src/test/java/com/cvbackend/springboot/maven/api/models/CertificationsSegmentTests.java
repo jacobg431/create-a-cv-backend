@@ -1,29 +1,27 @@
 package com.cvbackend.springboot.maven.api.models;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
-
+import org.springframework.boot.test.json.JacksonTester;
+import com.cvbackend.springboot.maven.api.config.TestConfig;
+import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.javatuples.Pair;
 
 @JsonTest
+@Import(TestConfig.class)
 public class CertificationsSegmentTests {
 
-    private ObjectMapper objectMapper;
+    @Autowired
+    private JacksonTester<CertificationsSegment> json;
+
     private CertificationsSegment certificationsSegment;
 
-    @Autowired
-    public CertificationsSegmentTests(ObjectMapper objectMapper, CertificationsSegment certificationsSegment) {
-        this.objectMapper = objectMapper;
-        this.certificationsSegment = certificationsSegment;
-    }
-
-    private void setSegment() throws Exception {
-        
-        String json = """
+    @BeforeEach
+    void setUp() throws Exception {
+        String jsonContent = """
             {
                 "certificationList": [
                     {
@@ -42,31 +40,26 @@ public class CertificationsSegmentTests {
                 ]
             }
             """;
-
-        this.certificationsSegment = this.objectMapper.readValue(json, CertificationsSegment.class);
-
+        certificationsSegment = json.parseObject(jsonContent);
     }
 
     @Test
     void testSerializationAndDeserialization() throws Exception {
+        assertThat(certificationsSegment.getCertificationList()).hasSize(2);
 
-        this.setSegment();
-        
-        assertThat(this.certificationsSegment.getCertificationList()).hasSize(2);
+        assertThat(certificationsSegment.getCertificationList().get(0).getName()).isEqualTo("Certified Java Developer");
+        assertThat(certificationsSegment.getCertificationList().get(0).getIssuer()).isEqualTo("Oracle");
+        assertThat(certificationsSegment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-05-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(0).getEndDate()).isEqualTo("2023-05-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(0).getIsNotExpiring()).isFalse();
 
-        assertThat(this.certificationsSegment.getCertificationList().get(0).getName()).isEqualTo("Certified Java Developer");
-        assertThat(this.certificationsSegment.getCertificationList().get(0).getIssuer()).isEqualTo("Oracle");
-        assertThat(this.certificationsSegment.getCertificationList().get(0).getStartDate()).isEqualTo("2020-05-01T00:00:00.000Z");
-        assertThat(this.certificationsSegment.getCertificationList().get(0).getEndDate()).isEqualTo("2023-05-01T00:00:00.000Z");
-        assertThat(this.certificationsSegment.getCertificationList().get(0).getIsNotExpiring()).isFalse();
+        assertThat(certificationsSegment.getCertificationList().get(1).getName()).isEqualTo("Certified JavaScript Developer");
+        assertThat(certificationsSegment.getCertificationList().get(1).getIssuer()).isEqualTo("Oracle");
+        assertThat(certificationsSegment.getCertificationList().get(1).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(1).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
+        assertThat(certificationsSegment.getCertificationList().get(1).getIsNotExpiring()).isTrue();
 
-        assertThat(this.certificationsSegment.getCertificationList().get(1).getName()).isEqualTo("Certified JavaScript Developer");
-        assertThat(this.certificationsSegment.getCertificationList().get(1).getIssuer()).isEqualTo("Oracle");
-        assertThat(this.certificationsSegment.getCertificationList().get(1).getStartDate()).isEqualTo("2020-02-01T00:00:00.000Z");
-        assertThat(this.certificationsSegment.getCertificationList().get(1).getEndDate()).isEqualTo("2010-02-01T00:00:00.000Z");
-        assertThat(this.certificationsSegment.getCertificationList().get(1).getIsNotExpiring()).isTrue();
-
-        String serializedJson = this.objectMapper.writeValueAsString(this.certificationsSegment);
+        String serializedJson = json.write(certificationsSegment).getJson();
         assertThat(serializedJson).contains("Certified Java Developer");
         assertThat(serializedJson).contains("Oracle");
         assertThat(serializedJson).contains("2020-05-01T00:00:00.000Z");
@@ -81,14 +74,9 @@ public class CertificationsSegmentTests {
     }
 
     @Test
-    public void testValidation() throws Exception {
-
-        this.setSegment();
-
-        Pair<Boolean, String> validationOutput = this.certificationsSegment.Validate();
+    public void testValidation() {
+        Pair<Boolean, String> validationOutput = certificationsSegment.Validate();
         assertThat(validationOutput.getValue0()).isEqualTo(true);
         assertThat(validationOutput.getValue1()).isNullOrEmpty();
-
     }
-
 }

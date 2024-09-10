@@ -1,15 +1,18 @@
 package com.cvbackend.springboot.maven.api.models;
 
+import com.cvbackend.springboot.maven.api.config.TestConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.javatuples.Pair;
 
 @JsonTest
+@Import(TestConfig.class)
 public class ExperienceSegmentTests {
 
     private ObjectMapper objectMapper;
