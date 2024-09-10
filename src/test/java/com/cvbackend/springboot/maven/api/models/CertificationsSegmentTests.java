@@ -4,12 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.javatuples.Pair;
+import com.cvbackend.springboot.maven.api.config.TestConfig;
+import org.springframework.context.annotation.Import;
 
 @JsonTest
+@Import(TestConfig.class)
 public class CertificationsSegmentTests {
 
     private ObjectMapper objectMapper;
