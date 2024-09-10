@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .entry {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Curriculum Vitae</h1>
+    
+    <div class="section">
+        <h2>Personal Information</h2>
+        <p>Name: <span th:text="${personaliaSegment.firstName + ' ' + personaliaSegment.lastName}">John Doe</span></p>
+        <p>Email: <span th:text="${personaliaSegment.email}">john@example.com</span></p>
+        <p>Phone: <span th:text="${personaliaSegment.phone}">123-456-7890</span></p>
+        <p>Date of Birth: <span th:text="${personaliaSegment.dateOfBirth}">1990-01-01</span></p>
+        <p>Gender: <span th:text="${personaliaSegment.gender}">Male</span></p>
+        <p>Address: <span th:text="${personaliaSegment.address + (personaliaSegment.address2 != null ? ', ' + personaliaSegment.address2 : '')}">123 Main St</span></p>
+        <p>City: <span th:text="${personaliaSegment.city}">Anytown</span></p>
+        <p>Zip Code: <span th:text="${personaliaSegment.zipCode}">12345</span></p>
+        <p>Country: <span th:text="${personaliaSegment.country}">USA</span></p>
+        <p>Summary: <span th:text="${personaliaSegment.summary}">A brief summary about me.</span></p>
+    </div>
+
+    <div class="section">
+        <h2>Education</h2>
+        <div th:each="education : ${educationSegment.educationList}" class="entry">
+            <p>School: <span th:text="${education.school}">University Name</span></p>
+            <p>Degree: <span th:text="${education.degree}">Degree Name</span></p>
+            <p>Period: <span th:text="${education.startDate + ' - ' + (education.isStudying ? 'Present' : education.endDate)}">2010 - 2014</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Work Experience</h2>
+        <div th:each="experience : ${experienceSegment.experienceList}" class="entry">
+            <p>Company: <span th:text="${experience.company}">Company Name</span></p>
+            <p>Position: <span th:text="${experience.position}">Job Title</span></p>
+            <p>Period: <span th:text="${experience.startDate + ' - ' + (experience.isWorking ? 'Present' : experience.endDate)}">2015 - Present</span></p>
+            <p>Description: <span th:text="${experience.description}">Job description</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Skills</h2>
+        <ul>
+            <li th:each="skill : ${skillsSegment.skillList}" th:text="${skill.skill}">Skill</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Certifications</h2>
+        <div th:each="certification : ${certificationsSegment.certificationList}" class="entry">
+            <p>Name: <span th:text="${certification.name}">Certification Name</span></p>
+            <p>Issuer: <span th:text="${certification.issuer}">Issuer Name</span></p>
+            <p>Period: <span th:text="${certification.startDate + ' - ' + (certification.isNotExpiring ? 'No Expiration' : certification.endDate)}">2020 - No Expiration</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Courses</h2>
+        <div th:each="course : ${coursesSegment.courseList}" class="entry">
+            <p>Name: <span th:text="${course.name}">Course Name</span></p>
+            <p>Instructor: <span th:text="${course.instructor}">Instructor Name</span></p>
+            <p>Completion Date: <span th:text="${course.completionDate}">2021-06-30</span></p>
+            <p>Duration: <span th:text="${course.duration}">3 months</span></p>
+        </div>
+    </div>
+</body>
+</html>
