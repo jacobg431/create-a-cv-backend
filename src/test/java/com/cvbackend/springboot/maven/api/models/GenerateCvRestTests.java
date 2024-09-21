@@ -20,9 +20,7 @@ import com.cvbackend.springboot.maven.api.config.TestConfig;
 @AutoConfigureMockMvc
 public class GenerateCvRestTests {
 
-    @Autowired
     private MockMvc mockMvc;
-
     private String json = """
         {
             "personaliaSegment": {
@@ -117,10 +115,10 @@ public class GenerateCvRestTests {
         }
         """;
 
-    //@Autowired
-    //public GenerateCvRestTests(MockMvc mockMvc) {
-    //    this.mockMvc = mockMvc;
-    //}
+    @Autowired
+    public GenerateCvRestTests(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
     @Test
     public void testRestResponse() throws Exception {
@@ -128,7 +126,7 @@ public class GenerateCvRestTests {
         this.mockMvc.perform(
                 post("/generate-pdf")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(json)
+                .content(this.json)
             ).andDo(print()).andExpect(status().isOk());
 
     }
