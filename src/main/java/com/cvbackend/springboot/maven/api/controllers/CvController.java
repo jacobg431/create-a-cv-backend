@@ -8,6 +8,9 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import com.cvbackend.springboot.maven.api.models.GenerateCvPayload;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 import org.slf4j.Logger;
@@ -21,8 +24,12 @@ public class CvController {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @PostMapping(value = "/generate-pdf", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public byte[] generatePdf(@RequestBody GenerateCvPayload payload) {
+    @PostMapping(
+        value = "/generate-pdf", 
+        consumes = MediaType.APPLICATION_JSON_VALUE, 
+        produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+    )
+    public byte[] generatePdf(@RequestBody GenerateCvPayload payload, HttpServletResponse response) {
         logger.info("Received payload: {}", payload);
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
