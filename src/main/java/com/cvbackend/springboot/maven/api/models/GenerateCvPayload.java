@@ -21,7 +21,8 @@ public class GenerateCvPayload {
     private int instanceIndex;
     private Boolean isValid;
     private String validationErrorMsg;
-    private ArrayList<Pair<Boolean, String>> validationResponseList;
+    private Pair<Boolean, String> validationResponse;
+    private ArrayList<AbstractSegment> segmentList;
 
 
     public Pair<Boolean, String> Validate() {
@@ -30,15 +31,16 @@ public class GenerateCvPayload {
         this.isValid = true;
         this.validationErrorMsg = "";
 
-        this.validationResponseList = new ArrayList<>();
-        this.validationResponseList.add(personaliaSegment.Validate());
-        this.validationResponseList.add(educationSegment.Validate());
-        this.validationResponseList.add(experienceSegment.Validate());
-        this.validationResponseList.add(skillsSegment.Validate());
-        this.validationResponseList.add(certificationsSegment.Validate());
-        this.validationResponseList.add(coursesSegment.Validate());
+        this.segmentList = new ArrayList<>();
+        this.segmentList.add(personaliaSegment);
+        this.segmentList.add(educationSegment);
+        this.segmentList.add(experienceSegment);
+        this.segmentList.add(skillsSegment);
+        this.segmentList.add(certificationsSegment);
+        this.segmentList.add(coursesSegment);
 
-        for (Pair<Boolean, String> validationResponse : validationResponseList) {
+        for (AbstractSegment iSegment : segmentList) {
+            this.validationResponse = iSegment.Validate();
             this.isValid = validationResponse.getValue0();
             if (!this.isValid) {
                 this.validationErrorMsg = validationResponse.getValue1();
