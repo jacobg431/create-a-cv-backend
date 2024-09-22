@@ -2,6 +2,7 @@ package com.cvbackend.springboot.maven.api.models;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -127,7 +128,10 @@ public class GenerateCvRestTests {
                 post("/generate-pdf")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(this.json)
-            ).andDo(print()).andExpect(status().isOk());
+            )
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE));
 
     }
     
