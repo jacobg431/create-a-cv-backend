@@ -29,7 +29,8 @@ public class CvController {
         produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
     )
     public byte[] generatePdf(@RequestBody GenerateCvPayload payload, HttpServletResponse response) {
-        logger.info("Received payload: {}", payload);
+        logger.info("Received payload");
+        logger.debug("Received payload: {}", payload);
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             Context context = new Context();
@@ -41,7 +42,7 @@ public class CvController {
             context.setVariable("coursesSegment", payload.getCoursesSegment());
 
             String generatedHtml = templateEngine.process("cv", context);
-            logger.info("Generated HTML: {}", generatedHtml); // Log the entire HTML
+            logger.debug("Generated HTML: {}", generatedHtml);
 
             if (generatedHtml == null || generatedHtml.trim().isEmpty() || generatedHtml.equals("cv")) {
                 throw new Exception("Template processing failed to generate valid HTML.");
@@ -54,7 +55,8 @@ public class CvController {
 
             byte[] pdf = outputStream.toByteArray();
             byte[] base64Content = Base64.getEncoder().encode(pdf);
-            logger.info("Base64 encoded PDF: {}", new String(base64Content));
+            logger.info("Returning Base64 encoded PDF");
+            logger.debug("Base64 encoded PDF: {}", new String(base64Content));
             return base64Content;
         } catch (Exception e) {
             logger.error("Error generating PDF", e);
