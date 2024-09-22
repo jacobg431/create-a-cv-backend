@@ -1,13 +1,13 @@
 package com.cvbackend.springboot.maven.api.models;
 
-import java.util.List;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.util.List;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
 import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)

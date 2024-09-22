@@ -10,7 +10,6 @@ import com.cvbackend.springboot.maven.api.models.GenerateCvPayload;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 import org.slf4j.Logger;

@@ -1,11 +1,11 @@
 package com.cvbackend.springboot.maven.api.models;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.List;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
