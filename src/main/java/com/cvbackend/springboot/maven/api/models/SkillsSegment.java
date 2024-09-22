@@ -5,10 +5,12 @@ import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Component
-public class SkillsSegment {
+public class SkillsSegment extends AbstractSegment {
 
     @Data
     public static class Skill {
@@ -30,8 +32,6 @@ public class SkillsSegment {
     }
 
     private List<Skill> skillList;
-    private Boolean isValid;
-    private String validationErrorMsg;
     private int instanceIndex;
 
     public Pair<Boolean, String> Validate() {

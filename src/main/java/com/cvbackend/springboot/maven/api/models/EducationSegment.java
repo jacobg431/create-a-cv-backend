@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 
 import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Component
-public class EducationSegment {
+public class EducationSegment extends AbstractSegment {
 
     @Data
     public static class Education {
@@ -71,8 +73,6 @@ public class EducationSegment {
     }
 
     private List<Education> educationList;
-    private Boolean isValid;
-    private String validationErrorMsg;
     private int instanceIndex;
 
     public Pair<Boolean, String> Validate() {
