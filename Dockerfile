@@ -8,6 +8,6 @@ RUN mvn clean package -DskipTests
 # Use a minimal Java runtime for the application
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /create-a-cv-backend/target/your-app.jar app.jar
+COPY --from=build /create-a-cv-backend/target/create-a-cv-backend.jar create-a-cv-backend.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "create-a-cv-backend.jar"]
