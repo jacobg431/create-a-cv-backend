@@ -15,7 +15,7 @@ public class MvcConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/generate-pdf")
-                    .allowedOrigins("http://localhost:3000")
+                    .allowedOrigins("http://localhost:3000", "http://cv.begby.net", "https://cv.begby.net")
                     .allowedMethods("POST")
                     .allowedHeaders("*")
                     .exposedHeaders("*");
