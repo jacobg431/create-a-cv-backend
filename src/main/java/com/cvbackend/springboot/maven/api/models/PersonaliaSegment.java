@@ -1,17 +1,19 @@
 package com.cvbackend.springboot.maven.api.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.Map;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
 import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;
-//import com.cvbackend.springboot.maven.api.utils.FileUtility;
 import com.cvbackend.springboot.maven.api.utils.StringUtility;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Component
-public class PersonaliaSegment {
+public class PersonaliaSegment extends AbstractSegment {
 
     final static Integer MAX_FILE_SIZE = 4_194_304;
     final static String EMAIL_PATTERN = "^(.+)@(\\S+)$";
@@ -30,9 +32,6 @@ public class PersonaliaSegment {
     private String country;
     private String summary;
     private Map<String, Object> profilePicture;
-
-    private Boolean isValid;
-    private String validationErrorMsg;
 
     public Pair<Boolean, String> Validate() {
 

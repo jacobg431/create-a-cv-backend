@@ -45,11 +45,10 @@ public class TestConfig implements WebMvcConfigurer {
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.addTemplateResolver(templateResolver());
         return templateEngine;
     }
 
-    @Bean
     public ClassLoaderTemplateResolver templateResolver() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");

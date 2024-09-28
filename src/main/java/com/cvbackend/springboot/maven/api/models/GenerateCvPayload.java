@@ -1,9 +1,10 @@
 package com.cvbackend.springboot.maven.api.models;
 
+import lombok.Data;
+
+import java.util.ArrayList;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
-
-import lombok.Data;
 
 @Data
 @Component
@@ -20,6 +21,7 @@ public class GenerateCvPayload {
     private Boolean isValid;
     private String validationErrorMsg;
     private Pair<Boolean, String> validationResponse;
+    private ArrayList<AbstractSegment> segmentList;
 
 
     public Pair<Boolean, String> Validate() {
@@ -28,46 +30,21 @@ public class GenerateCvPayload {
         this.isValid = true;
         this.validationErrorMsg = "";
 
-        this.validationResponse = personaliaSegment.Validate();
-        this.isValid = validationResponse.getValue0();
-        if (!this.isValid) {
-            this.validationErrorMsg = validationResponse.getValue1();
-            return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
-        }
-        
-        this.validationResponse = skillsSegment.Validate();
-        this.isValid = validationResponse.getValue0();
-        if (!this.isValid) {
-            this.validationErrorMsg = validationResponse.getValue1();
-            return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
-        }
-        
-        this.validationResponse = educationSegment.Validate();
-        this.isValid = validationResponse.getValue0();
-        if (!this.isValid) {
-            this.validationErrorMsg = validationResponse.getValue1();
-            return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
-        }
-        
-        this.validationResponse = experienceSegment.Validate();
-        this.isValid = validationResponse.getValue0();
-        if (!this.isValid) {
-            this.validationErrorMsg = validationResponse.getValue1();
-            return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
-        }
-        
-        this.validationResponse = certificationsSegment.Validate();
-        this.isValid = validationResponse.getValue0();
-        if (!this.isValid) {
-            this.validationErrorMsg = validationResponse.getValue1();
-            return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
-        }
-        
-        this.validationResponse = coursesSegment.Validate();
-        this.isValid = validationResponse.getValue0();
-        if (!this.isValid) {
-            this.validationErrorMsg = validationResponse.getValue1();
-            return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
+        this.segmentList = new ArrayList<>();
+        this.segmentList.add(personaliaSegment);
+        this.segmentList.add(educationSegment);
+        this.segmentList.add(experienceSegment);
+        this.segmentList.add(skillsSegment);
+        this.segmentList.add(certificationsSegment);
+        this.segmentList.add(coursesSegment);
+
+        for (AbstractSegment iSegment : segmentList) {
+            this.validationResponse = iSegment.Validate();
+            this.isValid = validationResponse.getValue0();
+            if (!this.isValid) {
+                this.validationErrorMsg = validationResponse.getValue1();
+                return new Pair<Boolean, String>(this.isValid, this.validationErrorMsg);
+            }
         }
 
         return new Pair<Boolean,String>(isValid, validationErrorMsg);

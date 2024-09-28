@@ -1,14 +1,16 @@
 package com.cvbackend.springboot.maven.api.models;
-import java.util.List;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.List;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
-import lombok.Data;
-
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Component
-public class CoursesSegment {
+public class CoursesSegment extends AbstractSegment {
 
     @Data
     public static class Course {
@@ -64,8 +66,6 @@ public class CoursesSegment {
 
     private List<Course> courseList;
     private int instanceIndex;
-    private Boolean isValid;
-    private String validationErrorMsg;
 
     public Pair<Boolean, String> Validate() {
 

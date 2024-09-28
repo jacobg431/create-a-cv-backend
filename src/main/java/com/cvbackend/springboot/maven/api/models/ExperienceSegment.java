@@ -1,18 +1,21 @@
 package com.cvbackend.springboot.maven.api.models;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.List;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
 import com.cvbackend.springboot.maven.api.utils.DateTimeUtility;
-import lombok.Data;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Component
-public class ExperienceSegment {
+public class ExperienceSegment extends AbstractSegment {
 
     @Data
-    public static class Experience  {
+    public static class Experience {
 
         private String company;
         private String position;
@@ -78,8 +81,6 @@ public class ExperienceSegment {
     }
 
     private List<Experience> experienceList;
-    private Boolean isValid;
-    private String validationErrorMsg;
     private int instanceIndex;
 
     public Pair<Boolean, String> Validate() {
